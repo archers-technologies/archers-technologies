@@ -251,7 +251,7 @@ const ContactPage = () => {
           <Button
             size="lg"
             variant="outline"
-            className="rounded-full px-8 border-border hover:bg-secondary"
+            className="rounded-full px-8"
           >
             Schedule a Call
             <ArrowRight className="ml-2 h-4 w-4" />

@@ -93,7 +93,7 @@ const Hero = () => {
               asChild
               variant="outline"
               size="lg"
-              className="rounded-full px-8 border-border hover:bg-secondary"
+              className="rounded-full px-8"
             >
               <Link to="/portfolio">View Our Work</Link>
             </Button>

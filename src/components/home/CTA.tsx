@@ -33,7 +33,7 @@ const CTA = () => {
               asChild
               variant="outline"
               size="lg"
-              className="rounded-full px-8 border-border hover:bg-secondary"
+              className="rounded-full px-8"
             >
               <Link to="/about">Learn About Us</Link>
             </Button>
