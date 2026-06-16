@@ -41,10 +41,10 @@ const Navbar = () => {
             : "bg-transparent"
       }`}
     >
-      <div className="mx-auto px-5 md:px-10 lg:px-14">
-        <div className="grid grid-cols-[1fr_auto_1fr] items-center h-16 md:h-[72px]">
+      <div className="mx-auto max-md:px-7 md:px-10 lg:px-14">
+        <div className="flex max-lg:justify-between max-lg:items-center max-lg:h-14 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center h-16 md:h-[72px]">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2.5 group justify-self-start">
+          <Link to="/" className="flex items-center gap-2.5 group max-lg:shrink-0 lg:justify-self-start">
             <img
               src={archerLogo}
               alt=""
@@ -76,7 +76,7 @@ const Navbar = () => {
           </div>
 
           {/* Right actions */}
-          <div className="flex items-center gap-3 justify-self-end">
+          <div className="flex items-center gap-3 max-lg:shrink-0 lg:justify-self-end">
             <Link
               to="/contact"
               className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-medium tracking-[0.12em] uppercase border border-brand/40 text-foreground hover:border-brand hover:bg-brand/5 transition-all"
@@ -86,10 +86,10 @@ const Navbar = () => {
             </Link>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-foreground/80 hover:text-foreground transition-colors"
+              className="lg:hidden flex items-center justify-center min-h-[44px] min-w-[44px] -mr-2 text-foreground/80 hover:text-foreground transition-colors"
               aria-label="Toggle menu"
             >
-              {isOpen ? <X size={22} /> : <Menu size={22} />}
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>

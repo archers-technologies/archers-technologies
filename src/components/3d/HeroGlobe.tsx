@@ -25,7 +25,12 @@ const HeroGlobe = ({ className = "" }: HeroGlobeProps) => {
     <div className={`w-full h-full ${className}`} aria-hidden>
       <Suspense fallback={<GlobeFallback />}>
         <Canvas
-          camera={{ fov: 44, near: 0.1, far: 200, position: [0, 0, 5.95] }}
+          camera={{
+            fov: isMobile ? 46 : 44,
+            near: 0.1,
+            far: 200,
+            position: [0, 0, isMobile ? 6.45 : 5.95],
+          }}
           dpr={isMobile ? [1, 1.25] : [1, 1.75]}
           gl={{
             antialias: true,
@@ -35,7 +40,7 @@ const HeroGlobe = ({ className = "" }: HeroGlobeProps) => {
           style={{ background: "transparent" }}
           onCreated={({ gl }) => {
             gl.toneMapping = THREE.ReinhardToneMapping;
-            gl.toneMappingExposure = 1.65;
+            gl.toneMappingExposure = isMobile ? 1.95 : 1.65;
             gl.outputColorSpace = THREE.SRGBColorSpace;
           }}
         >

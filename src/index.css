@@ -298,6 +298,15 @@
       drop-shadow(0 0 140px rgba(255, 55, 0, 0.09));
   }
 
+  @media (max-width: 767px) {
+    .hero-globe-canvas-glow-mobile {
+      filter:
+        drop-shadow(0 0 35px rgba(255, 95, 0, 0.38))
+        drop-shadow(0 0 60px rgba(255, 75, 0, 0.24))
+        drop-shadow(0 0 90px rgba(255, 55, 0, 0.12));
+    }
+  }
+
   .hero-neon-ambient {
     animation: neon-ambient-breathe 4s ease-in-out infinite;
   }

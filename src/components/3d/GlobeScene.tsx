@@ -98,7 +98,7 @@ function CameraRig({
   );
 }
 
-function Earth() {
+function Earth({ isMobile }: { isMobile: boolean }) {
   const [colorMap, bumpMap] = useTexture([EARTH_TEXTURE, BUMP_TEXTURE]);
 
   useEffect(() => {
@@ -116,8 +116,8 @@ function Earth() {
         bumpScale={0.14}
         emissiveMap={colorMap}
         emissive="#ff5500"
-        emissiveIntensity={1.1}
-        color="#5a6d7d"
+        emissiveIntensity={isMobile ? 1.5 : 1.1}
+        color={isMobile ? "#6a7d8d" : "#5a6d7d"}
         roughness={0.48}
         metalness={0.08}
       />
@@ -299,26 +299,32 @@ function ConnectionArc({
   );
 }
 
-function SceneLights() {
+function SceneLights({ isMobile }: { isMobile: boolean }) {
   return (
     <>
-      <hemisphereLight args={["#3a4a5a", "#080604", 0.35]} />
-      <ambientLight intensity={0.22} color="#7788aa" />
-      <directionalLight position={[5, 4, 6]} intensity={1.8} color="#ffe8cc" />
+      <hemisphereLight args={["#3a4a5a", "#080604", isMobile ? 0.45 : 0.35]} />
+      <ambientLight intensity={isMobile ? 0.32 : 0.22} color="#7788aa" />
+      <directionalLight position={[5, 4, 6]} intensity={isMobile ? 2.1 : 1.8} color="#ffe8cc" />
       <directionalLight position={[-4, 1, 3]} intensity={0.4} color="#aabbcc" />
-      <pointLight position={[3, 1, 5]} intensity={0.8} color="#ff6600" distance={20} decay={1.5} />
+      <pointLight
+        position={[3, 1, 5]}
+        intensity={isMobile ? 1.15 : 0.8}
+        color="#ff6600"
+        distance={20}
+        decay={1.5}
+      />
     </>
   );
 }
 
 export default function GlobeScene({ reducedMotion, isMobile }: GlobeSceneProps) {
   const arcs = useMemo(() => getGlobeArcs(), []);
-  const offsetX = isMobile ? GLOBE_SCENE_OFFSET_X * 0.35 : GLOBE_SCENE_OFFSET_X;
-  const offsetY = isMobile ? 0 : GLOBE_SCENE_OFFSET_Y;
+  const offsetX = isMobile ? 0 : GLOBE_SCENE_OFFSET_X;
+  const offsetY = isMobile ? 0.08 : GLOBE_SCENE_OFFSET_Y;
 
   return (
     <group position={[offsetX, offsetY, 0]}>
-      <SceneLights />
+      <SceneLights isMobile={isMobile} />
       <CameraRig targetX={offsetX} targetY={offsetY} />
 
       <Stars
@@ -331,7 +337,7 @@ export default function GlobeScene({ reducedMotion, isMobile }: GlobeSceneProps)
         speed={0.2}
       />
 
-      <Earth />
+      <Earth isMobile={isMobile} />
       <NeonAtmosphere reducedMotion={reducedMotion} />
 
       {arcs.map((arc) => (
