@@ -2,7 +2,10 @@ import Layout from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
 import { ArrowRight, Linkedin, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
+<<<<<<< HEAD
 import ahmedPhoto from "@/assets/team/ahmed-misbah.png";
+=======
+>>>>>>> 438ad51869c57fc625fe3b6c59f92fb16e817c29
 import ehsanPhoto from "@/assets/team/ehsan-ul-haq-syed.png";
 import shoebPhoto from "@/assets/team/shoeb-mohammed.png";
 
