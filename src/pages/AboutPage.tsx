@@ -2,19 +2,22 @@ import Layout from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
 import { ArrowRight, Linkedin, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ahmedPhoto from "@/assets/team/ahmed-misbah.png";
+import ehsanPhoto from "@/assets/team/ehsan-ul-haq-syed.png";
+import shoebPhoto from "@/assets/team/shoeb-mohammed.png";
 
 const team = [
   {
     name: "Ahmed Misbah",
     role: "Founder & CEO",
-    image: "https://media.licdn.com/dms/image/v2/D5603AQE3bjkyZWK5Pw/profile-displayphoto-crop_800_800/B56Zwtt_sgGQAM-/0/1770293558705?e=1773878400&v=beta&t=iSzZj71lCiaL7pWCUCLkCjV0ZiSaBV83soy_jDjkUnY",
+    image: ahmedPhoto,
     linkedin: "https://www.linkedin.com/in/ahmed-misbahuddin-164b34276",
     twitter: "#",
   },
   {
     name: "Ehsan Ul Haq Syed",
     role: "Founder & COO",
-    image: "https://media.licdn.com/dms/image/v2/D4D03AQFST9M7KUyDDg/profile-displayphoto-crop_800_800/B4DZwd.stlIUAI-/0/1770029505907?e=1773878400&v=beta&t=S8FMP71gNUYHWRIpEqKhgHpUM4C71a1ADuNIdWeF2t8",
+    image: ehsanPhoto,
     linkedin: "https://www.linkedin.com/in/softwaresmaster",
     twitter: "#",
   },
@@ -28,7 +31,7 @@ const team = [
   {
     name: "Shoeb Mohammed",
     role: "Business Development Manager",
-    image: "public/male-user.png",
+    image: shoebPhoto,
     linkedin: "https://www.linkedin.com/in/mohammed-shoeb-77067b215/",
     twitter: "#",
   },

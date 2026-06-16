@@ -36,6 +36,10 @@
 
     --radius: 0.75rem;
 
+    /* Archers brand — orange/amber */
+    --brand: 33 100% 50%;
+    --brand-foreground: 0 0% 4%;
+
     /* Custom Archers tokens */
     --glass: 0 0% 100% / 0.1;
     --glass-border: 0 0% 100% / 0.2;
@@ -73,6 +77,10 @@
     --input: 0 0% 18%;
     --ring: 0 0% 85%;
 
+    /* Archers brand — orange/amber */
+    --brand: 33 100% 50%;
+    --brand-foreground: 0 0% 4%;
+
     /* Custom Archers tokens - dark mode */
     --glass: 0 0% 100% / 0.05;
     --glass-border: 0 0% 100% / 0.1;
@@ -102,6 +110,14 @@
 @layer components {
   .glass-card {
     @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl;
+  }
+
+  .text-brand-gradient {
+    @apply bg-gradient-to-r from-[hsl(33,100%,55%)] via-[hsl(33,100%,50%)] to-[hsl(25,100%,45%)] bg-clip-text text-transparent;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
   }
 
   .glass-button {
@@ -172,5 +188,191 @@
   @keyframes blink-caret {
     from, to { border-color: transparent }
     50% { border-color: white }
+  }
+
+  /* Globe pin markers */
+  .globe-pin-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .globe-pin {
+    width: 12px;
+    height: 12px;
+    background: #ff8c00;
+    border-radius: 50%;
+    box-shadow:
+      0 0 10px #ff8c00,
+      0 0 20px #ff8c00,
+      0 0 40px rgba(255, 140, 0, 0.5);
+    animation: globe-pulse 2.5s ease-in-out infinite;
+  }
+
+  .globe-pin-tooltip {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    opacity: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: hsl(0 0% 6% / 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 140, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 10;
+  }
+
+  .globe-pin-wrapper:hover .globe-pin-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+
+  .globe-pin-flag {
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  .globe-pin-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .globe-pin-city {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .globe-pin-services {
+    font-size: 0.6rem;
+    color: #ff8c00;
+    margin-top: 2px;
+  }
+
+  @keyframes globe-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.85; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .globe-pin {
+      animation: none;
+    }
+
+    .animate-float,
+    .animate-bounce {
+      animation: none !important;
+    }
+  }
+
+  /* Country labels — reference-style pills */
+  .hero-globe-pin-card {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 9px 4px 6px;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.82);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Soft outer bloom only — large blur, no tight edge (avoids ring/border look) */
+  .hero-globe-canvas-glow {
+    filter:
+      drop-shadow(0 0 55px rgba(255, 95, 0, 0.28))
+      drop-shadow(0 0 95px rgba(255, 75, 0, 0.16))
+      drop-shadow(0 0 140px rgba(255, 55, 0, 0.09));
+  }
+
+  .hero-neon-ambient {
+    animation: neon-ambient-breathe 4s ease-in-out infinite;
+  }
+
+  @keyframes neon-ambient-breathe {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.75; }
+  }
+
+  .hero-globe-pin-city {
+    font-size: 9px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.15;
+  }
+
+  .hero-globe-pin-flag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    font-size: 9px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .hero-globe-pin-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .hero-globe-pin-country {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.92);
+    line-height: 1.15;
+  }
+
+  /* Scroll mouse indicator */
+  .hero-scroll-mouse {
+    width: 22px;
+    height: 34px;
+    border-radius: 11px;
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: center;
+    padding-top: 7px;
+  }
+
+  .hero-scroll-mouse-dot {
+    width: 3px;
+    height: 6px;
+    border-radius: 2px;
+    background: rgba(255, 140, 0, 0.7);
+    animation: scroll-mouse 2s ease-in-out infinite;
+  }
+
+  @keyframes scroll-mouse {
+    0%, 100% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(6px); opacity: 0.3; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-scroll-mouse-dot {
+      animation: none;
+    }
+
+    .hero-neon-ambient {
+      animation: none !important;
+    }
   }
 }
