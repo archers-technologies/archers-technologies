@@ -198,7 +198,13 @@ function NeonAtmosphere({ reducedMotion }: { reducedMotion: boolean }) {
   );
 }
 
-function LocationPin({ location }: { location: GlobeLocation }) {
+function LocationPin({
+  location,
+  isMobile,
+}: {
+  location: GlobeLocation;
+  isMobile: boolean;
+}) {
   const position = useMemo(
     () => latLngToVector3(location.lat, location.lng, GLOBE_RADIUS + 0.02),
     [location.lat, location.lng]
@@ -223,9 +229,9 @@ function LocationPin({ location }: { location: GlobeLocation }) {
         />
       </mesh>
       <Html
-        position={[0, 0.1, 0]}
+        position={[0, isMobile ? 0.08 : 0.1, 0]}
         center
-        distanceFactor={3.6}
+        distanceFactor={isMobile ? 4.3 : 3.6}
         occlude
         zIndexRange={[0, 0]}
         style={{ pointerEvents: "none" }}
@@ -236,7 +242,7 @@ function LocationPin({ location }: { location: GlobeLocation }) {
             <span className="hero-globe-pin-country">
               {location.shortName ?? location.name}
             </span>
-            <span className="hero-globe-pin-city">{location.city}</span>
+            {!isMobile && <span className="hero-globe-pin-city">{location.city}</span>}
           </div>
         </div>
       </Html>
@@ -327,7 +333,7 @@ export default function GlobeScene({ reducedMotion, isMobile }: GlobeSceneProps)
       ))}
 
       {globeLocations.map((location) => (
-        <LocationPin key={location.city} location={location} />
+        <LocationPin key={location.city} location={location} isMobile={isMobile} />
       ))}
     </group>
   );

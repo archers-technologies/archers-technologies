@@ -342,6 +342,25 @@
     line-height: 1.15;
   }
 
+  @media (max-width: 767px) {
+    .hero-globe-pin-card {
+      gap: 4px;
+      padding: 3px 7px 3px 5px;
+      border-radius: 4px;
+    }
+
+    .hero-globe-pin-flag {
+      width: 12px;
+      height: 12px;
+      font-size: 8px;
+    }
+
+    .hero-globe-pin-country {
+      font-size: 8px;
+      letter-spacing: 0.04em;
+    }
+  }
+
   /* Scroll mouse indicator */
   .hero-scroll-mouse {
     width: 22px;
