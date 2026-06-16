@@ -2,7 +2,11 @@ import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Html, Line, OrbitControls, Stars, useTexture } from "@react-three/drei";
 import * as THREE from "three";
-import { globeLocations, type GlobeLocation } from "@/data/globe-locations";
+import {
+  getGlobeArcs,
+  globeLocations,
+  type GlobeLocation,
+} from "@/data/globe-locations";
 import {
   createArcPoints,
   GLOBE_RADIUS,
@@ -18,8 +22,6 @@ const EARTH_TEXTURE =
   "https://unpkg.com/three-globe/example/img/earth-night.jpg";
 const BUMP_TEXTURE =
   "https://unpkg.com/three-globe/example/img/earth-topology.png";
-
-const HQ = globeLocations.find((l) => l.isHQ)!;
 
 /** Page scroll passes through on the left; globe zoom on the right */
 const WHEEL_INTERACTION_START = 0.4;
@@ -242,7 +244,12 @@ function LocationPin({
             <span className="hero-globe-pin-country">
               {location.shortName ?? location.name}
             </span>
-            {!isMobile && <span className="hero-globe-pin-city">{location.city}</span>}
+            {!isMobile && (
+              <span className="hero-globe-pin-city">
+                {location.city}
+                {isHQ ? " · Main HQ" : ""}
+              </span>
+            )}
           </div>
         </div>
       </Html>
@@ -251,18 +258,22 @@ function LocationPin({
 }
 
 function ConnectionArc({
+  startLat,
+  startLng,
   endLat,
   endLng,
   reducedMotion,
 }: {
+  startLat: number;
+  startLng: number;
   endLat: number;
   endLng: number;
   reducedMotion: boolean;
 }) {
   const lineRef = useRef<THREE.Line>(null);
   const points = useMemo(
-    () => createArcPoints(HQ.lat, HQ.lng, endLat, endLng),
-    [endLat, endLng]
+    () => createArcPoints(startLat, startLng, endLat, endLng),
+    [startLat, startLng, endLat, endLng]
   );
 
   useFrame(() => {
@@ -301,7 +312,7 @@ function SceneLights() {
 }
 
 export default function GlobeScene({ reducedMotion, isMobile }: GlobeSceneProps) {
-  const arcTargets = globeLocations.filter((l) => !l.isHQ);
+  const arcs = useMemo(() => getGlobeArcs(), []);
   const offsetX = isMobile ? GLOBE_SCENE_OFFSET_X * 0.35 : GLOBE_SCENE_OFFSET_X;
   const offsetY = isMobile ? 0 : GLOBE_SCENE_OFFSET_Y;
 
@@ -323,17 +334,23 @@ export default function GlobeScene({ reducedMotion, isMobile }: GlobeSceneProps)
       <Earth />
       <NeonAtmosphere reducedMotion={reducedMotion} />
 
-      {arcTargets.map((loc) => (
+      {arcs.map((arc) => (
         <ConnectionArc
-          key={loc.city}
-          endLat={loc.lat}
-          endLng={loc.lng}
+          key={arc.key}
+          startLat={arc.startLat}
+          startLng={arc.startLng}
+          endLat={arc.endLat}
+          endLng={arc.endLng}
           reducedMotion={reducedMotion}
         />
       ))}
 
       {globeLocations.map((location) => (
-        <LocationPin key={location.city} location={location} isMobile={isMobile} />
+        <LocationPin
+          key={`${location.shortName ?? location.name}-${location.city}`}
+          location={location}
+          isMobile={isMobile}
+        />
       ))}
     </group>
   );
