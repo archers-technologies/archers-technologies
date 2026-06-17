@@ -228,7 +228,9 @@ function LocationPin({
           <span className="hero-globe-pin-flag">{location.flag}</span>
           <div className="hero-globe-pin-text">
             <span className="hero-globe-pin-country">
-              {location.shortName ?? location.name}
+              {isMobile
+                ? (location.pinLabel ?? location.city)
+                : (location.shortName ?? location.name)}
             </span>
             {!isMobile && (
               <span className="hero-globe-pin-city">

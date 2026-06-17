@@ -2,6 +2,8 @@ export interface GlobeLocation {
   name: string;
   /** Compact label for 3D globe pins */
   shortName?: string;
+  /** Primary pin label on mobile */
+  pinLabel?: string;
   city: string;
   lat: number;
   lng: number;
@@ -32,6 +34,7 @@ export const globeLocations: GlobeLocation[] = [
   },
   {
     name: "India",
+    pinLabel: "Hyderabad",
     city: "Hyderabad",
     lat: 17.385,
     lng: 78.4867,
@@ -41,6 +44,7 @@ export const globeLocations: GlobeLocation[] = [
   },
   {
     name: "India",
+    pinLabel: "Bangalore",
     city: "Bangalore",
     lat: 12.9716,
     lng: 77.5946,
@@ -49,6 +53,7 @@ export const globeLocations: GlobeLocation[] = [
   },
   {
     name: "India",
+    pinLabel: "Gujarat",
     city: "Gujarat",
     lat: 23.0225,
     lng: 72.5714,
@@ -58,6 +63,7 @@ export const globeLocations: GlobeLocation[] = [
   {
     name: "United Kingdom",
     shortName: "UK",
+    pinLabel: "England",
     city: "England",
     lat: 52.3555,
     lng: -1.1743,
@@ -67,6 +73,7 @@ export const globeLocations: GlobeLocation[] = [
   {
     name: "United Kingdom",
     shortName: "UK",
+    pinLabel: "UK",
     city: "London",
     lat: 51.5074,
     lng: -0.1278,
@@ -76,6 +83,7 @@ export const globeLocations: GlobeLocation[] = [
   {
     name: "United States",
     shortName: "USA",
+    pinLabel: "Chicago",
     city: "Chicago",
     lat: 41.8781,
     lng: -87.6298,
@@ -85,6 +93,7 @@ export const globeLocations: GlobeLocation[] = [
   {
     name: "United States",
     shortName: "USA",
+    pinLabel: "Texas",
     city: "Texas",
     lat: 31.9686,
     lng: -99.9018,
@@ -94,6 +103,7 @@ export const globeLocations: GlobeLocation[] = [
   {
     name: "United States",
     shortName: "USA",
+    pinLabel: "California",
     city: "California",
     lat: 36.7783,
     lng: -119.4179,
