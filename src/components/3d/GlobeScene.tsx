@@ -23,9 +23,6 @@ const EARTH_TEXTURE =
 const BUMP_TEXTURE =
   "https://unpkg.com/three-globe/example/img/earth-topology.png";
 
-/** Page scroll passes through on the left; globe zoom on the right */
-const WHEEL_INTERACTION_START = 0.4;
-
 interface GlobeSceneProps {
   reducedMotion: boolean;
   isMobile: boolean;
@@ -34,51 +31,39 @@ interface GlobeSceneProps {
 function CameraRig({
   targetX,
   targetY,
+  isMobile,
+  reducedMotion,
 }: {
   targetX: number;
   targetY: number;
+  isMobile: boolean;
+  reducedMotion: boolean;
 }) {
   const { camera, gl } = useThree();
   const controlsRef = useRef<React.ElementRef<typeof OrbitControls>>(null);
 
   useLayoutEffect(() => {
-    const position = latLngToVector3(
-      INITIAL_VIEW_LAT,
-      INITIAL_VIEW_LNG,
-      INITIAL_CAMERA_DISTANCE
-    );
-    camera.position.copy(position);
+    if (!isMobile) {
+      const position = latLngToVector3(
+        INITIAL_VIEW_LAT,
+        INITIAL_VIEW_LNG,
+        INITIAL_CAMERA_DISTANCE
+      );
+      camera.position.copy(position);
+    }
     camera.lookAt(targetX, targetY, 0);
     camera.updateProjectionMatrix();
-  }, [camera, targetX, targetY]);
+  }, [camera, targetX, targetY, isMobile]);
 
   useEffect(() => {
-    const controls = controlsRef.current;
     const canvas = gl.domElement;
-    if (!controls) return;
+    if (!isMobile) return;
 
-    controls.enableZoom = false;
-
-    const onWheel = (event: WheelEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      const xRatio = (event.clientX - rect.left) / rect.width;
-      if (xRatio < WHEEL_INTERACTION_START) return;
-
-      event.preventDefault();
-      event.stopPropagation();
-
-      const delta = event.deltaY * 0.001 * controls.zoomSpeed;
-      if (delta > 0) {
-        controls.dollyIn(1 + delta);
-      } else {
-        controls.dollyOut(1 - delta);
-      }
-      controls.update();
+    canvas.style.touchAction = "none";
+    return () => {
+      canvas.style.touchAction = "";
     };
-
-    canvas.addEventListener("wheel", onWheel, { passive: false });
-    return () => canvas.removeEventListener("wheel", onWheel);
-  }, [gl]);
+  }, [gl, isMobile]);
 
   return (
     <OrbitControls
@@ -93,7 +78,8 @@ function CameraRig({
       enablePan={false}
       rotateSpeed={0.5}
       zoomSpeed={0.55}
-      autoRotate={false}
+      autoRotate={!reducedMotion}
+      autoRotateSpeed={0.35}
     />
   );
 }
@@ -325,7 +311,12 @@ export default function GlobeScene({ reducedMotion, isMobile }: GlobeSceneProps)
   return (
     <group position={[offsetX, offsetY, 0]}>
       <SceneLights isMobile={isMobile} />
-      <CameraRig targetX={offsetX} targetY={offsetY} />
+      <CameraRig
+        targetX={offsetX}
+        targetY={offsetY}
+        isMobile={isMobile}
+        reducedMotion={reducedMotion}
+      />
 
       <Stars
         radius={90}

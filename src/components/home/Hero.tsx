@@ -20,8 +20,8 @@ const Hero = () => {
 
   /* Globe: centered behind content on mobile; center-right on desktop */
   const globeX = useTransform(scrollYProgress, [0, 1], isMobile ? ["0%", "-2%"] : ["7%", "-3%"]);
-  const globeY = useTransform(scrollYProgress, [0, 1], isMobile ? ["-4%", "-6%"] : ["7%", "3%"]);
-  const globeScale = useTransform(scrollYProgress, [0, 1], isMobile ? [0.96, 0.9] : [1.12, 1.0]);
+  const globeY = useTransform(scrollYProgress, [0, 1], isMobile ? ["0%", "-2%"] : ["7%", "3%"]);
+  const globeScale = useTransform(scrollYProgress, [0, 1], isMobile ? [1.12, 1.08] : [1.12, 1.0]);
   const globeOpacity = useTransform(scrollYProgress, [0, 0.65, 1], [1, 0.9, 0.6]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
   const contentY = useTransform(scrollYProgress, [0, 0.45], [0, -30]);
@@ -31,11 +31,11 @@ const Hero = () => {
   };
 
   return (
-    <section ref={containerRef} className="relative max-md:h-[145vh] md:h-[170vh]">
-      <div className="sticky top-0 h-screen w-full overflow-hidden bg-black">
+    <section ref={containerRef} className="relative max-md:h-[100dvh] max-md:hero-mobile-viewport md:h-[170vh]">
+      <div className="sticky top-0 h-screen max-md:h-[100dvh] max-md:hero-mobile-viewport max-md:max-h-[100dvh] w-full overflow-hidden bg-black">
         {/* Ambient background */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute inset-0 max-md:bg-[radial-gradient(ellipse_85%_55%_at_50%_42%,rgba(255,85,0,0.2),transparent_75%)] md:bg-[radial-gradient(ellipse_80%_75%_at_68%_56%,rgba(255,85,0,0.14),transparent_78%)] hero-neon-ambient" />
+          <div className="absolute inset-0 max-md:bg-[radial-gradient(ellipse_70%_95%_at_50%_40%,rgba(255,85,0,0.22),transparent_70%)] md:bg-[radial-gradient(ellipse_80%_75%_at_68%_56%,rgba(255,85,0,0.14),transparent_78%)] hero-neon-ambient" />
           <div
             className="absolute inset-0 opacity-[0.025]"
             style={{
@@ -45,7 +45,7 @@ const Hero = () => {
             }}
           />
           <div className="absolute inset-0 max-md:hidden bg-gradient-to-r from-black via-black/80 to-transparent w-[52%] sm:w-[48%] z-[1]" />
-          <div className="absolute inset-x-0 bottom-0 max-md:block md:hidden h-[52%] bg-gradient-to-t from-black via-black/80 to-transparent z-[1]" />
+          <div className="absolute inset-x-0 bottom-0 max-md:block md:hidden h-[50%] bg-gradient-to-t from-black via-black/70 to-transparent z-[1]" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 max-md:opacity-40 md:opacity-100 z-[1]" />
         </div>
 
@@ -54,12 +54,12 @@ const Hero = () => {
           className="absolute inset-0 w-full h-full z-0 pointer-events-auto"
           style={{
             x: reducedMotion ? (isMobile ? "0%" : "7%") : globeX,
-            y: reducedMotion ? (isMobile ? "-4%" : "7%") : globeY,
-            scale: reducedMotion ? (isMobile ? 0.96 : 1.12) : globeScale,
+            y: reducedMotion ? (isMobile ? "0%" : "7%") : globeY,
+            scale: reducedMotion ? (isMobile ? 1.12 : 1.12) : globeScale,
             opacity: reducedMotion ? 1 : globeOpacity,
           }}
         >
-          <div className="absolute inset-0 hero-globe-canvas-glow max-md:hero-globe-canvas-glow-mobile">
+          <div className="absolute inset-0 hero-globe-canvas-glow max-md:hero-globe-mobile-layer max-md:hero-globe-height-fit">
             <Suspense fallback={null}>
               <HeroGlobe className="w-full h-full" />
             </Suspense>
@@ -68,27 +68,27 @@ const Hero = () => {
 
         {/* Hero copy — left, minimal */}
         <motion.div
-          className="relative z-10 h-full flex flex-col max-md:justify-end md:justify-center max-md:px-7 md:px-12 lg:px-16 xl:px-20 pt-16 max-md:pb-20 md:pb-0 pointer-events-none"
+          className="relative z-10 md:h-full flex flex-col md:justify-center max-md:absolute max-md:inset-x-0 max-md:bottom-0 max-md:px-7 md:px-12 lg:px-16 xl:px-20 md:pt-16 max-md:pt-0 max-md:pb-[max(1.25rem,env(safe-area-inset-bottom))] md:pb-0 pointer-events-none"
           style={{
             opacity: reducedMotion ? 1 : contentOpacity,
-            y: reducedMotion ? 0 : contentY,
+            y: reducedMotion ? 0 : isMobile ? 0 : contentY,
           }}
         >
-          <div className="max-md:max-w-[16rem] md:max-w-md lg:max-w-lg pointer-events-auto">
-            <h1 className="font-sans font-bold uppercase tracking-tight max-md:mb-6 md:mb-10 max-md:leading-[1.08] md:leading-[0.95]">
-              <span className="block text-white max-md:text-[clamp(1.875rem,8vw,2.375rem)] md:text-[2.75rem] lg:text-5xl">
+          <div className="max-md:max-w-[15.5rem] md:max-w-md lg:max-w-lg pointer-events-auto">
+            <h1 className="font-sans font-bold uppercase tracking-tight max-md:mb-4 md:mb-10 max-md:text-[1.75rem] max-md:leading-[1.1] md:leading-[0.95]">
+              <span className="block text-white md:text-[2.75rem] lg:text-5xl">
                 We Build{" "}
                 <span className="text-brand max-md:inline md:hidden">Digital Products</span>
               </span>
               <span className="hidden md:block text-brand md:mt-1 md:text-[3.25rem] lg:text-[3.5rem]">
                 Digital Products
               </span>
-              <span className="block text-white max-md:text-[clamp(1.875rem,8vw,2.375rem)] max-md:mt-0 md:mt-1 md:text-[2.75rem] lg:text-5xl">
+              <span className="block text-white max-md:mt-0 md:mt-1 md:text-[2.75rem] lg:text-5xl">
                 That Grow Businesses
               </span>
             </h1>
 
-            <div className="flex flex-col gap-4 md:gap-5 max-md:gap-4">
+            <div className="flex flex-col gap-4 md:gap-5 max-md:gap-3.5">
               <Link
                 to="/portfolio"
                 className="inline-flex items-center gap-2.5 text-white/90 hover:text-white transition-colors group w-fit"
