@@ -6,7 +6,6 @@ import archerLogo from "@/assets/archer-logo.png";
 const navLinks = [
   { name: "Work", path: "/portfolio" },
   { name: "Services", path: "/services" },
-  { name: "Process", path: "/#process" },
   { name: "About", path: "/about" },
 ];
 
@@ -26,10 +25,7 @@ const Navbar = () => {
     setIsOpen(false);
   }, [location]);
 
-  const isActive = (path: string) => {
-    if (path === "/#process") return location.pathname === "/" && location.hash === "#process";
-    return location.pathname === path;
-  };
+  const isActive = (path: string) => location.pathname === path;
 
   return (
     <nav

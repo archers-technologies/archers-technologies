@@ -48,23 +48,30 @@ const Footer = () => {
             </p>
             <div className="space-y-3">
               <a
-                href="mailto:info@archers.tech"
+                href="mailto:info@archerstechnologies.com"
                 className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Mail size={18} />
                 <span>info@archerstechnologies.com</span>
               </a>
               <a
-                href="tel:+917674800104"
+                href="tel:+9665051907078"
                 className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Phone size={18} />
-                <span>+966551907078</span>
+                <span>+9665051907078</span>
               </a>
-              <div className="flex items-center gap-3 text-muted-foreground">
-                <MapPin size={18} />
-                <span>St. 113, Nour Al Moustaqbal. Jeddah, Saudi Arabia.</span>
-              </div>
+              <a
+                href="https://maps.app.goo.gl/tPRSMnqd34wrqLom9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-3 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <MapPin size={18} className="shrink-0 mt-0.5" />
+                <span>
+                  JESB3642, 3642 Nour Al Moustaqbal, 7816, As Salamah District, Jeddah 23437
+                </span>
+              </a>
             </div>
           </div>
 

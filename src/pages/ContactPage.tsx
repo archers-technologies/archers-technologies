@@ -50,20 +50,21 @@ const ContactPage = () => {
     {
       icon: Mail,
       label: "Email",
-      value: "info@archers.tech",
-      href: "mailto:info@archers.tech",
+      value: "info@archerstechnologies.com",
+      href: "mailto:info@archerstechnologies.com",
     },
     {
       icon: Phone,
       label: "Phone",
-      value: "+1 (234) 567-890",
-      href: "tel:+1234567890",
+      value: "+9665051907078",
+      href: "tel:+9665051907078",
     },
     {
       icon: MapPin,
       label: "Address",
-      value: "123 Tech Avenue, New York, NY 10001",
-      href: "#",
+      value: "JESB3642, 3642 Nour Al Moustaqbal, 7816, As Salamah District, Jeddah 23437",
+      href: "https://maps.app.goo.gl/tPRSMnqd34wrqLom9",
+      external: true,
     },
   ];
 
@@ -102,6 +103,9 @@ const ContactPage = () => {
                   <a
                     key={item.label}
                     href={item.href}
+                    {...("external" in item && item.external
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
                     className="flex items-start gap-4 group"
                   >
                     <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center flex-shrink-0 group-hover:bg-foreground group-hover:text-background transition-colors">
@@ -120,13 +124,13 @@ const ContactPage = () => {
               {/* Map Placeholder */}
               <div className="aspect-video rounded-2xl bg-card border border-border overflow-hidden">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-74.11976397304903!3d40.69766374874431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1645564756836!5m2!1sen!2sus"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.2220078796!2d39.1591688!3d21.5911355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c3d083f0bf9341%3A0x2c62f5e391bb79fa!2sJESB3642%2C%203642%20Nour%20Al%20Moustaqbal%2C%207816%2C%20As%20Salamah%20District%2C%20Jeddah%2023437!5e1!3m2!1sen!2ssa!4v1782280095726!5m2!1sen!2ssa"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
                   allowFullScreen
                   loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
+                  referrerPolicy="strict-origin-when-cross-origin"
                   title="Office Location"
                 />
               </div>
