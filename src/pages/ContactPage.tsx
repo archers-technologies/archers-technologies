@@ -56,8 +56,8 @@ const ContactPage = () => {
     {
       icon: Phone,
       label: "Phone",
-      value: "+9665051907078",
-      href: "tel:+9665051907078",
+      value: "+966551907078",
+      href: "tel:+966551907078",
     },
     {
       icon: MapPin,
